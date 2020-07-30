@@ -1,10 +1,12 @@
 import React from "react";
+
 import "./style.scss";
+import StripeContainer from "./StripeContainer";
 
 const App = () => {
   return (
-    <div className="App">
-      <p>hello world</p>
+    <div className="app">
+      <StripeContainer />
     </div>
   );
 };
