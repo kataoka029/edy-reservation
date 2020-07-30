@@ -31,9 +31,10 @@ const PaymentForm = () => {
       email,
     };
     const response = await fetch(`${url}payment`, {
-      method: "POST",
-      headers,
       body: JSON.stringify(data),
+      headers,
+      method: "POST",
+      mode: "cors",
     });
     const paymentIntent = await response.json();
     const clientSecret = paymentIntent.client_secret;
