@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 import "./style.scss";
-import Card from "./Card";
-import Email from "./Email";
-import Name from "./Name";
 import config from "../../../../config";
 
 const url = config.url;
@@ -59,9 +56,42 @@ const PaymentForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Name setFamilyName={setFamilyName} setLastName={setLastName} />
-      <Email setEmail={setEmail} />
-      <Card />
+      <section className="name">
+        <input
+          type="text"
+          placeholder="姓"
+          onChange={(e) => setFamilyName(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="名"
+          onChange={(e) => setLastName(e.target.value)}
+        />
+      </section>
+      <section className="email">
+        <input
+          type="email"
+          placeholder="メールアドレス"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </section>
+      <section className="card">
+        <CardElement
+          options={{
+            style: {
+              base: {
+                backgroundColor: "#ffffff",
+                color: "#304040",
+                fontSize: "16px",
+                "::placeholder": {
+                  color: "#cdd6d1",
+                },
+                lineHeight: "60px",
+              },
+            },
+          }}
+        />
+      </section>
       <button type="submit" disabled={!stripe}>
         PAY
       </button>
