@@ -2,100 +2,79 @@ import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 import "./style.scss";
-import config from "../../../../config";
-
-const url = config.url;
+import { makeReservation } from "../../../../utils";
 
 const PaymentForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const [familyName, setFamilyName] = useState("");
+  const [firstName, setfirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [unlockedAt, setUnlockedAt] = useState("");
 
-  const handleSubmit = async (event) => {
-    console.log(familyName, lastName, email);
-    event.preventDefault();
-
-    // paymentIntent (clientSecret)を取得
-    const headers = {
-      "Content-type": "application/json",
-    };
-    const data = {
-      amount: 1000,
-      familyName,
-      lastName,
-      email,
-    };
-    const response = await fetch(`${url}payment`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify(data),
-    });
-    const paymentIntent = await response.json();
-    const clientSecret = paymentIntent.client_secret;
-    console.log("PAYMENT INTENT: ", paymentIntent);
-
-    // 支払いを確認
-    const result = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-      },
-    });
-    if (result.error) {
-      console.log("ERROR: ", result.error.message);
-    } else if (result.paymentIntent.status === "succeeded") {
-      console.log("PAYMENT RESULT: ", result);
-      // await fetch(`${url}users`, {
-      //   method: "POST",
-      //   headers,
-      //   body: JSON.stringify(data),
-      // });
-    }
+  const data = {
+    amount: 1000,
+    firstName,
+    lastName,
+    phoneNumber,
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <section className="name">
-        <input
-          type="text"
-          placeholder="姓"
-          onChange={(e) => setFamilyName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="名"
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </section>
-      <section className="email">
-        <input
-          type="email"
-          placeholder="メールアドレス"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </section>
-      <section className="card">
-        <CardElement
-          options={{
-            style: {
-              base: {
-                backgroundColor: "#ffffff",
-                color: "#304040",
-                fontSize: "16px",
-                "::placeholder": {
-                  color: "#cdd6d1",
+    <div className="payment-form">
+      <form onSubmit={(e) => makeReservation(e, stripe, elements, data)}>
+        <div className="first-name">
+          <input
+            type="text"
+            placeholder="姓"
+            onChange={(e) => setfirstName(e.target.value)}
+          />
+        </div>
+
+        <div className="last-name">
+          <input
+            type="text"
+            placeholder="名"
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+
+        <div className="phone-number">
+          <input
+            type="tel"
+            placeholder="電話番号（-を含めない）"
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+        </div>
+
+        <div className="unlocked-at">
+          <input
+            type="datetime-local"
+            onChange={(e) => setUnlockedAt(e.target.value)}
+          />
+        </div>
+
+        <div className="card">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  backgroundColor: "#ffffff",
+                  color: "#404142",
+                  fontSize: "16px",
+                  "::placeholder": {
+                    color: "#cccccc",
+                  },
+                  lineHeight: "40px",
                 },
-                lineHeight: "60px",
               },
-            },
-          }}
-        />
-      </section>
-      <button type="submit" disabled={!stripe}>
-        PAY
-      </button>
-    </form>
+            }}
+          />
+        </div>
+        <button type="submit" disabled={!stripe}>
+          PAY
+        </button>
+      </form>
+    </div>
   );
 };
 
