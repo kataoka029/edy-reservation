@@ -4,20 +4,6 @@ import config from "../config";
 
 const url = config.url;
 
-export const fetchOrdersByUser = async (dispatch, lineUserId) => {
-  if (!lineUserId) return [];
-  await fetch(`${url}api/users/${lineUserId}/orders`)
-    .then((res) => res.json())
-    .then((data) => {
-      dispatch({
-        type: "SET_ORDERS_BYUSER",
-        ordersByUser: data,
-      });
-    })
-    .then(() => console.log("SUCCESS - fetchOrdersByUser()"))
-    .catch((err) => console.log("ERROR - fetchOrdersByUser() - ", err));
-};
-
 export const makeReservation = async (event, stripe, elements, data) => {
   event.preventDefault();
 
