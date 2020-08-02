@@ -55,7 +55,7 @@ div.payment-form {
     margin-top: 2px;
 
     input {
-      padding: 0 30px 0 50px;
+      padding: 0 30px 0 25%;
       // text-align: center;
     }
   }
@@ -79,7 +79,13 @@ div.payment-form {
   }
 
   div.card {
+    background-color: #f5f5f5;
+    box-sizing: border-box;
     margin: 10px 20px;
+
+    div.StripeElement {
+      padding-left: 15px;
+    }
   }
 
   div.button {
