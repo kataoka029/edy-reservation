@@ -12,7 +12,7 @@
 div.payment-form {
   height: calc(100vh - 40px);
   margin: 0 auto;
-  max-width: 360px;
+  max-width: 400px;
   padding-top: 40px;
 
   h1 {
@@ -30,9 +30,10 @@ div.payment-form {
   div.row {
     align-items: center;
     display: flex;
-    margin: 10px 20px;
+    margin: 10px 30px;
 
     span.material-icons {
+      color: #c4c4c4;
       font-size: 20px;
       margin-left: 30px;
       position: absolute;
@@ -56,7 +57,6 @@ div.payment-form {
 
     input {
       padding: 0 30px 0 25%;
-      // text-align: center;
     }
   }
 
@@ -73,18 +73,16 @@ div.payment-form {
     text-align: center;
 
     span {
-      // font-size: 20px;
-      // font-weight: bold;
     }
   }
 
   div.card {
     background-color: #f5f5f5;
     box-sizing: border-box;
-    margin: 10px 20px;
+    margin: 10px 30px;
 
     div.StripeElement {
-      padding-left: 15px;
+      padding: 0 10px 0 30px;
     }
   }
 
