@@ -16,7 +16,8 @@ const PaymentForm = () => {
   const [unlockedAt, setUnlockedAt] = useState("");
   const [userNum, setUserNum] = useState(1);
 
-  const lineUserId = "Tf42bb47c877c9e5543ca4eda7661e142";
+  // const lineUserId = "Tf42bb47c877c9e5543ca4eda7661e142";
+  const lineUserId = "";
 
   useEffect(() => {
     if (!lineUserId) return [];
@@ -39,12 +40,11 @@ const PaymentForm = () => {
 
   return (
     <div className="payment-form">
-      <p>Empty Dressy 来店予約フォーム</p>
+      <h1>Empty Dressy 来店予約フォーム</h1>
 
       <form onSubmit={(e) => makeReservation(e, stripe, elements, data)}>
         <div className="row first-name">
           <span className="material-icons">account_circle</span>
-          <label>姓</label>
           <input
             type="text"
             placeholder="姓"
@@ -55,7 +55,6 @@ const PaymentForm = () => {
 
         <div className="row last-name">
           <span className="material-icons">account_circle</span>
-          <label>名</label>
           <input
             type="text"
             placeholder="名"
@@ -66,7 +65,6 @@ const PaymentForm = () => {
 
         <div className="row phone-number">
           <span className="material-icons">phone_iphone</span>
-          <label>電話番号</label>
           <input
             type="tel"
             placeholder="09012345678"
@@ -75,9 +73,9 @@ const PaymentForm = () => {
           />
         </div>
 
+        <p>予約時間</p>
         <div className="row unlocked-at">
           <span className="material-icons">lock_open</span>
-          <label>予約時間</label>
           <input
             type="datetime-local"
             value={unlockedAt}
@@ -85,9 +83,9 @@ const PaymentForm = () => {
           />
         </div>
 
+        <p>人数</p>
         <div className="row user-num">
           <span className="material-icons">person_add</span>
-          <label>人数</label>
           <input
             type="number"
             value={userNum}
@@ -95,22 +93,16 @@ const PaymentForm = () => {
           />
         </div>
 
-        <div className="row amount">
-          <span className="material-icons">account_balance_wallet</span>
-          <label>合計金額</label>
-          <span>{userNum * 3480}</span>
-        </div>
-
         <div className="card">
           <CardElement
             options={{
               style: {
                 base: {
-                  backgroundColor: "#ffffff",
+                  backgroundColor: "#f5f5f5",
                   color: "#404142",
-                  fontSize: "16px",
+                  fontSize: "14px",
                   "::placeholder": {
-                    color: "#cccccc",
+                    color: "#c4c4c4",
                   },
                   lineHeight: "40px",
                 },
@@ -118,9 +110,17 @@ const PaymentForm = () => {
             }}
           />
         </div>
-        <button type="submit" disabled={!stripe}>
-          PAY
-        </button>
+
+        <p>合計金額</p>
+        <div className="row amount">
+          <span>{(userNum * 3480).toLocaleString()} 円</span>
+        </div>
+
+        <div className="button">
+          <button type="submit" disabled={!stripe}>
+            支払う
+          </button>
+        </div>
       </form>
     </div>
   );
