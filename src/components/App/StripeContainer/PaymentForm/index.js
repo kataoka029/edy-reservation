@@ -18,6 +18,7 @@ const PaymentForm = () => {
 
   // const lineUserId = "Tf42bb47c877c9e5543ca4eda7661e142";
   const lineUserId = "";
+  const unitPrice = 100;
 
   useEffect(() => {
     if (!lineUserId) return [];
@@ -31,6 +32,7 @@ const PaymentForm = () => {
   }, []);
 
   const data = {
+    unitPrice,
     firstName,
     lastName,
     phoneNumber,
@@ -113,7 +115,7 @@ const PaymentForm = () => {
 
         <p>合計金額</p>
         <div className="row amount">
-          <span>{(userNum * 3480).toLocaleString()} 円</span>
+          <span>{(userNum * unitPrice).toLocaleString()} 円</span>
         </div>
 
         <div className="button">
